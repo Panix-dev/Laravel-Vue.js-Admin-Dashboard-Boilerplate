@@ -2,7 +2,7 @@
 
 > A boilerplate ready to use for your custom dashboard projects
 
-This repo contains the structure for an admin dashboard using Laravel and Vue.js. Laravel handles anything related to the data storage, server-side validation, CRUD operations, and API routing as well as the setup for JWT token authentication. Vue.js provides the reactive user experience and the consumption of the authentication token. The boilerplate uses Vuex to store global information and the Vue Router to handle the front end navigation.
+This repo contains the structure for an admin dashboard using Laravel and Vue.js. Laravel handles anything related to the data storage, server-side validation, CRUD operations, and API routing as well as the setup for Scope Based Authentication with Laravel Passport. Vue.js provides the reactive user experience and the consumption of the authentication token by using JWT (JASON WEB TOKEN) to encrypt and decrypt the user data. The boilerplate uses Vuex to store global information and the Vue Router to handle the routing/navigation.
 
 
 ## Table of Contents
