@@ -15,8 +15,8 @@ This repo contains the structure for an admin dashboard using Laravel and Vue.js
 - [Flash Messages](#flash-messages)
 - [Load Categories](#load-categories)
 - [Update Category](#update-category)
-
 - [Laravel API Routes](#laravel-api-routes)
+- [Laravel Passport Scopes](#laravel-api-routes)
 
 - [Contact Details](#contact-details)
 - [Inspiration](#inspiration)
@@ -39,6 +39,16 @@ export function httpFile() {
 			'Content-Type': 'multipart/form-data'
 		}
 	});
+}
+
+function setToken(user) {
+    const token = jwt.sign({ user: user }, 'laravelvuespahashencryption2020');
+    localStorage.setItem('laravel-vue-spa-token', token);
+    store.dispatch('authenticate', user.user);
+}
+
+export function register(user) {
+    return http().post('/auth/register', user);
 }
 ```
 
@@ -115,8 +125,29 @@ updateCategory: async function() {
 ## Laravel API Routes
 
 
-```javascript
+```php
+Route::group(['middleware' => 'auth:api'], function() {
 
+    Route::group(['middleware' => 'scope:user'], function() {
+        Route::get('get-categories', 'ProductController@categories');
+        Route::resource('products', 'ProductController');
+    });
+
+    Route::group(['middleware' => 'scope:administrator'], function() {
+        Route::resource('categories', 'CategoryController');
+    });
+});
+```
+
+
+## Laravel Passport Scopes
+
+
+```php
+Passport::tokensCan([
+    'administrator' => 'Administrator token scope',
+    'user' => 'User token scope',
+]);
 ```
 
 
